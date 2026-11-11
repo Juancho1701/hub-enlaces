@@ -149,6 +149,14 @@ section{padding:110px 0}
 .device img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform 1.6s var(--ease)}
 .show:hover .device img{transform:scale(1.04)}
 
+/* Canales de YouTube */
+.yt{display:grid;place-items:center;align-content:center;gap:18px;aspect-ratio:16/10;border-radius:18px;color:#fff;text-align:center;background:linear-gradient(140deg,var(--hue),color-mix(in srgb,var(--hue) 50%,#000));box-shadow:var(--shadow-up);overflow:hidden;position:relative}
+.yt::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 80% 10%,rgba(255,255,255,.22),transparent 70%)}
+.yt .pb{position:relative;z-index:1;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);transition:transform .6s var(--ease)}
+.yt .pb svg{width:34px;height:34px;margin-left:4px}
+.yt b{position:relative;z-index:1;font-size:clamp(16px,2vw,20px);font-weight:700;letter-spacing:-.01em}
+.show:hover .yt .pb{transform:scale(1.1)}
+
 /* Oficinas: banda oscura */
 .night{background:var(--night);color:var(--night-ink);border-radius:var(--r-xl) var(--r-xl) 0 0;position:relative;overflow:hidden;isolation:isolate}
 .night::before{content:"";position:absolute;inset:-30% -10% auto;height:900px;z-index:-1;background:radial-gradient(35% 40% at 25% 30%,rgba(26,160,138,.22),transparent 70%),radial-gradient(35% 40% at 80% 40%,rgba(106,92,240,.25),transparent 70%)}
@@ -303,6 +311,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     <nav class="links" aria-label="Secciones">
       <a href="#proyectos">Proyectos</a>
       <a href="#oficinas">Oficinas</a>
+      <a href="#canales">Canales</a>
       <a href="#guias">Guías</a>
       <a href="#atajos">Atajos</a>
     </nav>
@@ -367,7 +376,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         </a>
         <a class="show rv" href="https://arma-tu-cancha.vercel.app" target="_blank" rel="noopener" style="--hue:#5a4be0">
           <div class="copy">
-            <span class="num">03 <span class="status school">Proyecto de grado</span></span>
+            <span class="num">03 <span class="status school">Prototipo de reservas de canchas sintéticas</span></span>
             <h3>Arma Tu Cancha</h3>
             <p>Plataforma para reservar canchas sintéticas de fútbol 6 en Cali. Eliges sede, cancha y hora, armas partidos abiertos y pagas con QR. Los administradores gestionan torneos y ven reportes de ocupación e ingresos.</p>
             <ul class="chips"><li>Reservas en línea</li><li>Partidos abiertos</li><li>Torneos</li><li>Pago con QR</li></ul>
@@ -418,6 +427,38 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div><b data-count="2">2</b><span>oficinas</span></div>
         <div><b data-count="18">18</b><span>agentes y salas</span></div>
         <div><b>24/7</b><span>trabajando</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="canales" class="light" style="padding-bottom:40px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow rv">Canales de YouTube</span>
+        <h2 class="rv" style="--d:.06s">Dos canales. Videos nuevos.</h2>
+        <p class="rv" style="--d:.12s">Mira los videos y suscríbete.</p>
+      </div>
+      <div class="shows">
+        <a class="show rv" href="https://www.youtube.com/@dinero_consentido" target="_blank" rel="noopener" style="--hue:#0b8f6a">
+          <div class="copy">
+            <span class="num">01 <span class="status live">En YouTube</span></span>
+            <h3>Dinero con Sentido</h3>
+            <p>Finanzas personales y psicología del dinero, explicadas con palabras sencillas y ejemplos del día a día: por qué gastamos de más, cómo funcionan las tarjetas y cómo empezar a ahorrar.</p>
+            <ul class="chips"><li>Finanzas personales</li><li>Ahorro</li><li>Psicología del dinero</li><li>En español</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Ver Dinero con Sentido</span>
+          </div>
+          <div class="media"><div class="yt"><span class="pb"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></svg></span><b>@dinero_consentido</b></div></div>
+        </a>
+        <a class="show rv" href="https://www.youtube.com/@Novex-Techn" target="_blank" rel="noopener" style="--hue:#6a5cf0">
+          <div class="copy">
+            <span class="num">02 <span class="status live">En YouTube</span></span>
+            <h3>Novex Tech</h3>
+            <p>Videos de tecnología y más: tips, guías y trucos para sacarle provecho a tus dispositivos y aplicaciones.</p>
+            <ul class="chips"><li>Tecnología</li><li>Tips y guías</li><li>Dispositivos</li><li>Apps</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Ver Novex Tech</span>
+          </div>
+          <div class="media"><div class="yt"><span class="pb"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.68l-10-6.5A1 1 0 0 0 8 5.5Z"/></svg></span><b>@Novex-Techn</b></div></div>
+        </a>
       </div>
     </div>
   </section>
