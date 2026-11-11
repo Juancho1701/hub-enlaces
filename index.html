@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juan David · Proyectos, agentes y guías</title>
+<meta name="description" content="Proyectos web, oficinas de agentes de IA, guías y atajos de Juan David Lozano, todo en un solo enlace.">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://links.e-nova.com.co/">
+<meta property="og:title" content="Juan David · Proyectos, agentes y guías">
+<meta property="og:description" content="AI Plata, E-Nova, Arma Tu Cancha, Parche Salchero, oficinas de agentes de IA, guías y atajos.">
+<meta property="og:image" content="https://links.e-nova.com.co/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230a5cd5'/%3E%3Cstop offset='1' stop-color='%23142a55'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='-apple-system,Segoe UI,sans-serif' font-size='26' font-weight='700' fill='white'%3EJD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://xiqohcxfmobebnicyrfu.supabase.co" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Plan: fondo gris Apple, tinta casi negra, un azul profundo como acento y un tono propio por proyecto.
+   Layout: hero con abanico de vistas previas; vitrinas alternadas por proyecto; banda oscura para las oficinas; rejilla de guías; lista de atajos. */
+:root{
+  --bg:#f5f5f7; --surface:#ffffff; --ink:#1d1d1f; --muted:#6e6e73; --line:rgba(0,0,0,.08);
+  --accent:#0a5cd5; --accent-soft:rgba(10,92,213,.09);
+  --night:#0b0d12; --night-2:#14171f; --night-ink:#f5f5f7; --night-muted:#a1a1a6;
+  --ok:#1a8f5c; --warn:#b06a00; --danger:#c0322b;
+  --r-xl:32px; --r-lg:22px; --r-md:14px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 18px 40px -20px rgba(0,0,0,.22);
+  --shadow-up:0 2px 6px rgba(0,0,0,.05),0 40px 80px -30px rgba(0,0,0,.35);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Manrope","Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+h1,h2,h3{letter-spacing:-.03em;line-height:1.05;text-wrap:balance;font-weight:700}
+
+/* Barra de progreso */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:linear-gradient(90deg,var(--accent),#6a5cf0);transform-origin:0 50%;transform:scaleX(0)}
+
+/* Navegación superior */
+.top{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s,box-shadow .4s,backdrop-filter .4s}
+.top.solid{background:rgba(245,245,247,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.brand i{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#142a55);display:grid;place-items:center;color:#fff;font-style:normal;font-size:12px;font-weight:800;letter-spacing:0}
+.links{display:flex;gap:2px}
+.links a{font-size:13.5px;font-weight:500;color:var(--muted);padding:8px 13px;border-radius:999px;transition:color .25s,background .25s}
+.links a:hover,.links a.on{color:var(--ink);background:rgba(0,0,0,.05)}
+
+/* Barra inferior en celular */
+.tabbar{display:none}
+
+/* HERO */
+.hero{position:relative;padding:128px 0 0;overflow:hidden;isolation:isolate}
+.hero .glow{position:absolute;z-index:-1;inset:-20% -20% auto;height:900px;pointer-events:none;
+  background:radial-gradient(38% 42% at 70% 30%,rgba(10,92,213,.20),transparent 70%),radial-gradient(30% 34% at 88% 62%,rgba(26,143,92,.14),transparent 70%),radial-gradient(28% 30% at 40% 70%,rgba(106,92,240,.12),transparent 70%);
+  animation:breathe 14s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:translate3d(-3%,2%,0) scale(1.08)}}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);padding:7px 14px 7px 10px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.kicker b{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(26,143,92,.5)}100%{box-shadow:0 0 0 10px rgba(26,143,92,0)}}
+.hero h1{font-size:clamp(46px,8vw,96px);margin:22px 0 22px;letter-spacing:-.045em;font-weight:800}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.hero h1 .w>span{display:inline-block}
+.grad{background:linear-gradient(100deg,var(--accent) 10%,#6a5cf0 55%,#1a8f5c 100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:sheen 8s ease-in-out infinite alternate}
+@keyframes sheen{to{background-position:100% 0}}
+.lead{font-size:clamp(18px,2.2vw,22px);color:var(--muted);max-width:30ch;line-height:1.45}
+.cta{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 26px;border-radius:999px;font-weight:600;font-size:16px;border:0;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s;white-space:nowrap}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:0 10px 26px -12px rgba(0,0,0,.6)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(0,0,0,.6)}
+.btn.blue{background:var(--accent);color:#fff;box-shadow:0 10px 26px -12px var(--accent)}
+.btn.ghost{background:rgba(255,255,255,.75);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.ghost:hover{background:#fff}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.btn svg{width:16px;height:16px}
+
+/* Abanico de vistas previas */
+.fan{position:relative;height:520px;perspective:1600px}
+.fan .shot{position:absolute;width:72%;left:14%;top:8%;border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow-up);border:1px solid var(--line);
+  transform:translate3d(var(--x,0),var(--y,0),0) rotate(var(--r,0deg)) scale(var(--s,1));transition:transform 1.4s var(--ease);will-change:transform}
+.fan .shot .bar{height:22px;display:flex;gap:5px;align-items:center;padding:0 10px;background:#f2f2f4;border-bottom:1px solid var(--line)}
+.fan .shot .bar i{width:7px;height:7px;border-radius:50%;background:#d6d6da}
+.fan .shot img{aspect-ratio:16/10;object-fit:cover;object-position:top;width:100%}
+.fan.open .shot:nth-child(1){--x:-22%;--y:-6%;--r:-7deg;--s:.84}
+.fan.open .shot:nth-child(2){--x:22%;--y:-10%;--r:6deg;--s:.8}
+.fan.open .shot:nth-child(3){--x:-18%;--y:16%;--r:5deg;--s:.82}
+.fan.open .shot:nth-child(4){--x:18%;--y:12%;--r:-4deg;--s:.88}
+.fan .shot:nth-child(1){z-index:1}.fan .shot:nth-child(2){z-index:2}.fan .shot:nth-child(3){z-index:3}.fan .shot:nth-child(4){z-index:4}
+
+/* Cinta de temas */
+.marquee{position:relative;z-index:2;background:var(--bg);overflow:hidden;padding:22px 0;border-block:1px solid var(--line);margin-top:24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee .track{display:flex;gap:44px;width:max-content;animation:slide 38s linear infinite}
+.marquee span{font-size:15px;font-weight:600;color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:44px}
+.marquee span::after{content:"";width:5px;height:5px;border-radius:50%;background:#c7c7cc}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Secciones */
+section{padding:110px 0}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:56px;max-width:720px}
+.eyebrow{font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.01em}
+.sec-head h2{font-size:clamp(38px,6vw,68px);letter-spacing:-.04em}
+.sec-head p{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:44ch}
+
+/* Revelado al hacer scroll (solo con JS activo) */
+.js .rv{opacity:0;transform:translate3d(0,48px,0) scale(.985);filter:blur(8px);transition:opacity 1.1s var(--ease),transform 1.2s var(--ease),filter 1.1s var(--ease);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none;filter:none}
+
+/* Vitrinas de proyectos */
+.shows{display:flex;flex-direction:column;gap:28px}
+.show{--hue:var(--accent);position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:center;padding:44px;border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--shadow);overflow:hidden;isolation:isolate}
+.show::before{content:"";position:absolute;z-index:-1;width:620px;height:620px;right:-160px;top:-180px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--hue) 22%,transparent),transparent 65%);transition:transform 1.4s var(--ease)}
+.show:hover::before{transform:scale(1.15) translate(-30px,20px)}
+.show:nth-child(even){grid-template-columns:1.1fr .9fr}
+.show:nth-child(even) .copy{order:2}
+.show:nth-child(even)::before{right:auto;left:-160px}
+.copy{display:flex;flex-direction:column;gap:16px;padding-right:12px}
+.num{font-size:13px;font-weight:700;color:var(--hue);display:flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums}
+.status{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status.live{color:var(--ok);background:rgba(26,143,92,.1)}
+.status.soon{color:var(--warn);background:rgba(176,106,0,.1)}
+.status.school{color:#5a4be0;background:rgba(90,75,224,.1)}
+.copy h3{font-size:clamp(32px,4.4vw,52px);letter-spacing:-.04em}
+.copy p{color:var(--muted);font-size:17px;line-height:1.55;max-width:42ch}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;color:var(--hue);background:color-mix(in srgb,var(--hue) 9%,transparent)}
+.visit{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--hue);font-size:16px}
+.visit span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--hue) 12%,transparent);transition:background .35s,color .35s,transform .5s var(--ease)}
+.visit span svg{width:14px;height:14px;transition:transform .5s var(--ease)}
+.show:hover .visit span{background:var(--hue);color:#fff}
+.show:hover .visit span svg{transform:translate(2px,-2px)}
+.device{display:block;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-up);transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px)) scale(var(--sc,1));transform-origin:50% 100%;will-change:transform}
+.device .bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 14px;background:#f2f2f4;border-bottom:1px solid var(--line)}
+.device .bar i{width:9px;height:9px;border-radius:50%;background:#d6d6da}
+.device .bar i:nth-child(1){background:#ff5f57}.device .bar i:nth-child(2){background:#febc2e}.device .bar i:nth-child(3){background:#28c840}
+.device .bar em{flex:1;margin:0 30px;height:18px;border-radius:6px;background:#e6e6ea;font-style:normal;font-size:11px;color:var(--muted);display:grid;place-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.device img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform 1.6s var(--ease)}
+.show:hover .device img{transform:scale(1.04)}
+
+/* Oficinas: banda oscura */
+.night{background:var(--night);color:var(--night-ink);border-radius:var(--r-xl) var(--r-xl) 0 0;position:relative;overflow:hidden;isolation:isolate}
+.night::before{content:"";position:absolute;inset:-30% -10% auto;height:900px;z-index:-1;background:radial-gradient(35% 40% at 25% 30%,rgba(26,160,138,.22),transparent 70%),radial-gradient(35% 40% at 80% 40%,rgba(106,92,240,.25),transparent 70%)}
+.night .eyebrow{color:#5fd4c0}
+.night .sec-head p{color:var(--night-muted)}
+.offices{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.office{--hue:#1aa08a;display:flex;flex-direction:column;border-radius:var(--r-xl);background:var(--night-2);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .7s var(--ease),border-color .5s}
+.office:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--hue) 50%,transparent)}
+.office .pic{position:relative;overflow:hidden;aspect-ratio:16/10}
+.office .pic img{width:100%;height:100%;object-fit:cover;transition:transform 2s var(--ease)}
+.office:hover .pic img{transform:scale(1.07)}
+.office .pic::after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(transparent,var(--night-2))}
+.office .tag{position:absolute;z-index:1;top:16px;left:16px;font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;background:rgba(11,13,18,.7);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12)}
+.office .txt{padding:6px 30px 32px;display:flex;flex-direction:column;gap:14px}
+.office h3{font-size:clamp(28px,3.4vw,38px)}
+.office p{color:var(--night-muted);font-size:16px;line-height:1.55}
+.office .chips li{color:color-mix(in srgb,var(--hue) 75%,#fff);background:color-mix(in srgb,var(--hue) 16%,transparent)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;margin-top:24px}
+.stats div{background:var(--night-2);padding:24px;display:flex;flex-direction:column;gap:4px}
+.stats b{font-size:clamp(30px,4vw,44px);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stats span{font-size:14px;color:var(--night-muted)}
+
+/* Guías y atajos */
+.light{background:var(--bg)}
+.guides{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;list-style:none}
+.guide{display:flex;flex-direction:column;border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow);overflow:hidden;transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.guide:hover{transform:translateY(-6px);box-shadow:var(--shadow-up)}
+.guide .cover{display:grid;place-items:center;aspect-ratio:4/3;background:linear-gradient(135deg,var(--accent-soft),rgba(106,92,240,.1));color:var(--accent);overflow:hidden}
+.guide .cover img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.guide:hover .cover img{transform:scale(1.06)}
+.guide .cover svg{width:48px;height:48px}
+.guide .gb{padding:18px 20px 6px;display:flex;flex-direction:column;gap:4px}
+.guide .gn{font-weight:700;font-size:18px;letter-spacing:-.015em;line-height:1.25;overflow-wrap:anywhere}
+.guide .gs{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.guide .ga{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 20px 20px;margin-top:auto}
+.pillbtn{font-size:14px;font-weight:600;color:var(--accent);padding:8px 16px;border-radius:999px;background:var(--accent-soft);transition:background .3s,color .3s}
+.guide:hover .pillbtn{background:var(--accent);color:#fff}
+.del{border:0;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);padding:8px 10px;border-radius:999px}
+.del:hover,.del.sure{color:var(--danger);background:rgba(192,50,43,.09)}
+.skel{border-radius:var(--r-lg);background:linear-gradient(100deg,#e9e9ee 30%,#f4f4f7 50%,#e9e9ee 70%);background-size:300% 100%;animation:shimmer 1.4s linear infinite;aspect-ratio:4/4.2}
+@keyframes shimmer{to{background-position:-150% 0}}
+.empty{grid-column:1/-1;padding:44px 24px;text-align:center;border-radius:var(--r-lg);background:var(--surface);color:var(--muted);border:1px dashed rgba(0,0,0,.12)}
+.empty strong{display:block;color:var(--ink);font-size:19px;margin-bottom:4px}
+.shortcuts{list-style:none;border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.sc{display:flex;align-items:center;gap:16px;padding:18px 22px;border-top:1px solid var(--line);transition:background .3s}
+.sc:first-child{border-top:0}
+.sc:hover{background:#fafafc}
+.sc .ic{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#ffd60a,#ff9f0a);color:#fff;transition:transform .5s var(--ease)}
+.sc:hover .ic{transform:rotate(-8deg) scale(1.06)}
+.sc .ic svg{width:22px;height:22px}
+.sc a.m{flex:1;min-width:0;display:flex;flex-direction:column}
+.sc .n{font-weight:600;font-size:17px;overflow-wrap:anywhere}
+.sc .h{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sc .go{flex:none;font-size:14px;font-weight:600;color:var(--accent);padding:8px 16px;border-radius:999px;background:var(--accent-soft)}
+.shortcuts .empty{border:0;border-radius:0}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+.note.err{color:var(--danger)}
+
+/* Formularios de edición */
+.editor{display:none;margin-bottom:28px;padding:24px;border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow);border:1.5px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.admin .editor{display:block}
+.editor h3{font-size:19px;letter-spacing:-.015em;margin-bottom:4px}
+.editor .hint{font-size:14px;color:var(--muted);margin-bottom:18px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fields .full{grid-column:1/-1}
+.field{width:100%;height:50px;padding:0 16px;border-radius:var(--r-md);border:1px solid rgba(0,0,0,.12);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s,background .2s;min-width:0}
+.field:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
+.drop{position:relative;display:flex;align-items:center;gap:12px;min-height:50px;padding:8px 16px;border-radius:var(--r-md);border:1.5px dashed rgba(10,92,213,.35);cursor:pointer;font-size:15px;color:var(--muted);background:rgba(10,92,213,.03);transition:background .2s,border-color .2s;min-width:0}
+.drop:hover{background:var(--accent-soft)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.drop span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drop img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex:none}
+.drop svg{flex:none;width:20px;height:20px;color:var(--accent)}
+.or{grid-column:1/-1;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;color:var(--muted)}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.row-end{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+.msg{font-size:14px;color:var(--muted)}
+.msg.err{color:var(--danger)}
+.msg.ok{color:var(--ok)}
+
+/* Pie */
+footer{padding:60px 0 calc(60px + var(--safe-b));color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px}
+.linkbtn{border:0;background:none;cursor:pointer;color:var(--muted);font-size:14px;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--ink)}
+
+/* Ventana de inicio de sesión */
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal.open{display:flex;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0}}
+.sheet{width:min(420px,100%);background:var(--surface);border-radius:28px;padding:30px;box-shadow:0 40px 100px -20px rgba(0,0,0,.45);animation:pop .5s var(--ease)}
+@keyframes pop{from{transform:translateY(30px) scale(.96);opacity:0}}
+.sheet h3{font-size:26px;margin-bottom:6px}
+.sheet p{color:var(--muted);font-size:15px;margin-bottom:20px}
+.sheet form{display:flex;flex-direction:column;gap:12px}
+.sheet .row-end{justify-content:space-between}
+.adminbar{position:fixed;z-index:70;left:50%;bottom:calc(20px + var(--safe-b));transform:translateX(-50%);display:none;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:600;box-shadow:0 20px 40px -12px rgba(0,0,0,.5)}
+.admin .adminbar{display:flex}
+.adminbar button{border:0;cursor:pointer;background:rgba(255,255,255,.14);color:#fff;font-weight:600;font-size:13px;padding:8px 14px;border-radius:999px}
+
+/* Responsive: celular primero en lo que importa */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:10px}
+  .fan{height:360px;max-width:560px;width:100%;margin-inline:auto}
+  .show,.show:nth-child(even){grid-template-columns:1fr;padding:22px;gap:22px}
+  .show:nth-child(even) .copy{order:0}
+  .show .copy{order:2;padding:0 6px 8px}
+  .show .media{order:1}
+  .offices{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .links{display:none}
+  .top .wrap{height:52px}
+  .hero{padding:96px 0 10px}
+  .hero h1{margin:18px 0 16px}
+  .cta .btn{flex:1 1 auto}
+  .fan{height:300px;margin-top:30px}
+  .fan .shot{width:68%;left:16%;top:8%}
+  section{padding:76px 0}
+  .sec-head{margin-bottom:34px}
+  .device .bar{height:24px}.device .bar em{margin:0 12px}
+  .stats div{padding:16px}
+  .office .txt{padding:4px 20px 24px}
+  .fields{grid-template-columns:1fr}
+  .editor{padding:18px}
+  .sc{padding:16px}
+  .sc .go{display:none}
+  .tabbar{display:flex;position:fixed;z-index:55;left:12px;right:12px;bottom:calc(12px + var(--safe-b));justify-content:space-around;padding:6px;border-radius:22px;background:rgba(255,255,255,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);box-shadow:0 12px 30px -10px rgba(0,0,0,.25),0 0 0 1px var(--line);transform:translateY(140%);transition:transform .6s var(--ease)}
+  .tabbar.show-bar{transform:none}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 4px;border-radius:16px;font-size:11px;font-weight:600;color:var(--muted);transition:color .25s,background .25s}
+  .tabbar a svg{width:21px;height:21px}
+  .tabbar a.on{color:var(--accent);background:var(--accent-soft)}
+  footer{padding-bottom:calc(110px + var(--safe-b))}
+  .admin .adminbar{bottom:calc(92px + var(--safe-b))}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add("js")</script>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><i>JD</i>Juan David</a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#oficinas">Oficinas</a>
+      <a href="#guias">Guías</a>
+      <a href="#atajos">Atajos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker"><b></b>Juan David Lozano · Cali</span>
+        <h1 id="headline"><span class="w"><span>Todo</span></span> <span class="w"><span>lo</span></span> <span class="w"><span>que</span></span> <span class="w"><span>creo,</span></span> <span class="w"><span class="grad">en</span></span> <span class="w"><span class="grad">un</span></span> <span class="w"><span class="grad">enlace.</span></span></h1>
+        <p class="lead">Páginas web, agentes de inteligencia artificial, guías y atajos. Siempre actualizado.</p>
+        <div class="cta">
+          <a class="btn primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn ghost" href="#guias">Guías y atajos</a>
+        </div>
+      </div>
+      <div class="fan" id="fan" aria-hidden="true">
+        <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/cancha.webp" alt="" width="760" height="475"></div>
+        <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/parche.webp" alt="" width="760" height="475"></div>
+        <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/aiplata.webp" alt="" width="760" height="475"></div>
+        <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/enova.webp" alt="" width="760" height="475" fetchpriority="high"></div>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        <span>Desarrollo web</span><span>Inteligencia artificial</span><span>Agentes autónomos</span><span>Comercio en línea</span><span>Finanzas personales</span><span>Automatización</span><span>Diseño de producto</span>
+        <span>Desarrollo web</span><span>Inteligencia artificial</span><span>Agentes autónomos</span><span>Comercio en línea</span><span>Finanzas personales</span><span>Automatización</span><span>Diseño de producto</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow rv">Proyectos</span>
+        <h2 class="rv" style="--d:.06s">Cuatro ideas. Cuatro sitios en línea.</h2>
+        <p class="rv" style="--d:.12s">Toca cualquiera para abrirlo.</p>
+      </div>
+      <div class="shows">
+        <a class="show rv" href="https://ai-plata.e-nova.com.co/" target="_blank" rel="noopener" style="--hue:#0b8f6a">
+          <div class="copy">
+            <span class="num">01 <span class="status live">En línea</span></span>
+            <h3>AI Plata</h3>
+            <p>App de presupuesto personal hecha para Colombia. Registra ingresos, gastos fijos, deudas y gastos del día a día, y muestra cuánto te queda de verdad al mes. Con asistente de IA, en el celular o en el computador.</p>
+            <ul class="chips"><li>Gastos y deudas</li><li>Bancos de Colombia</li><li>Asistente con IA</li><li>Celular y web</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Abrir AI Plata</span>
+          </div>
+          <div class="media"><div class="device"><div class="bar"><i></i><i></i><i></i><em>ai-plata.e-nova.com.co</em></div><img src="img/aiplata.webp" alt="Pantalla de inicio de AI Plata" width="760" height="475" loading="lazy"></div></div>
+        </a>
+        <a class="show rv" href="https://e-nova.com.co" target="_blank" rel="noopener" style="--hue:#0a5cd5">
+          <div class="copy">
+            <span class="num">02 <span class="status live">En línea</span></span>
+            <h3>E-Nova</h3>
+            <p>Tienda en línea de sandalias y calzado, activa desde 2022. Catálogo con tallas y precios, envío gratis a toda Colombia y pago al recibir. También puedes pedir directo por WhatsApp.</p>
+            <ul class="chips"><li>Sandalias</li><li>Envío gratis</li><li>Pagas al recibir</li><li>Pedido por WhatsApp</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Ir a la tienda</span>
+          </div>
+          <div class="media"><div class="device"><div class="bar"><i></i><i></i><i></i><em>e-nova.com.co</em></div><img src="img/enova.webp" alt="Portada de la tienda E-Nova con sandalias" width="760" height="475" loading="lazy"></div></div>
+        </a>
+        <a class="show rv" href="https://arma-tu-cancha.vercel.app" target="_blank" rel="noopener" style="--hue:#5a4be0">
+          <div class="copy">
+            <span class="num">03 <span class="status school">Proyecto de grado</span></span>
+            <h3>Arma Tu Cancha</h3>
+            <p>Plataforma para reservar canchas sintéticas de fútbol 6 en Cali. Eliges sede, cancha y hora, armas partidos abiertos y pagas con QR. Los administradores gestionan torneos y ven reportes de ocupación e ingresos.</p>
+            <ul class="chips"><li>Reservas en línea</li><li>Partidos abiertos</li><li>Torneos</li><li>Pago con QR</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Reservar cancha</span>
+          </div>
+          <div class="media"><div class="device"><div class="bar"><i></i><i></i><i></i><em>arma-tu-cancha.vercel.app</em></div><img src="img/cancha.webp" alt="Portada de Arma Tu Cancha con sedes disponibles" width="760" height="475" loading="lazy"></div></div>
+        </a>
+        <a class="show rv" href="https://parche.e-nova.com.co/pedir" target="_blank" rel="noopener" style="--hue:#c47a12">
+          <div class="copy">
+            <span class="num">04 <span class="status soon">Próximamente</span></span>
+            <h3>Parche Salchero</h3>
+            <p>Salchipapas en Cali. Arma tu pedido en línea, te damos un turno y te llamamos por tu nombre cuando esté listo. Sin filas, sin llamar.</p>
+            <ul class="chips"><li>Salchipapas</li><li>Pedido por turno</li><li>Cali</li></ul>
+            <span class="visit"><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg></span>Ver el menú</span>
+          </div>
+          <div class="media"><div class="device"><div class="bar"><i></i><i></i><i></i><em>parche.e-nova.com.co</em></div><img src="img/parche.webp" alt="Menú de salchipapas de Parche Salchero" width="760" height="475" loading="lazy"></div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="oficinas" class="night">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow rv">Oficinas de agentes</span>
+        <h2 class="rv" style="--d:.06s">Equipos de IA que trabajan solos.</h2>
+        <p class="rv" style="--d:.12s">Cada agente tiene un puesto, una tarea y un jefe. Se reúnen, se pasan el trabajo y piden aprobación antes de decidir.</p>
+      </div>
+      <div class="offices">
+        <article class="office rv">
+          <div class="pic"><span class="tag">Uso interno</span><img src="img/oficina-enova.webp" alt="Oficina Virtual E-Nova en 3D con nueve agentes en sus puestos" width="800" height="500" loading="lazy"></div>
+          <div class="txt">
+            <h3>Oficina Virtual E-Nova</h3>
+            <p>El cuartel general de la tienda. Nueve agentes se reparten ventas, pedidos, inventario, finanzas, anuncios, redes sociales y piezas creativas, coordinados por un agente director.</p>
+            <ul class="chips"><li>Ventas y pedidos</li><li>Inventario</li><li>Redes y anuncios</li><li>Vista 3D</li></ul>
+          </div>
+        </article>
+        <article class="office rv" style="--d:.1s;--hue:#7a6cf5">
+          <div class="pic"><span class="tag">Uso interno</span><img src="img/oficina-novex.webp" alt="NOVEX-TECH Studio en 3D con salas de dirección, diseño, video, audio y edición" width="800" height="500" loading="lazy"></div>
+          <div class="txt">
+            <h3>NOVEX-TECH Studio</h3>
+            <p>Un estudio que produce videos de principio a fin. Cada sala es un departamento: investigación, redacción, diseño, video, audio, edición, calidad y finanzas, bajo una dirección.</p>
+            <ul class="chips"><li>Guion y narración</li><li>Recursos visuales</li><li>Edición</li><li>Control de calidad</li></ul>
+          </div>
+        </article>
+      </div>
+      <div class="stats rv">
+        <div><b data-count="2">2</b><span>oficinas</span></div>
+        <div><b data-count="18">18</b><span>agentes y salas</span></div>
+        <div><b>24/7</b><span>trabajando</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="guias" class="light">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow rv">Guías</span>
+        <h2 class="rv" style="--d:.06s">Aprende paso a paso.</h2>
+        <p class="rv" style="--d:.12s">Documentos y guías para abrir, guardar o compartir.</p>
+      </div>
+      <div class="editor" id="ed-guia">
+        <h3>Publicar una guía</h3>
+        <p class="hint">Sube un PDF o pega un enlace. La portada es opcional.</p>
+        <form id="f-guia" novalidate>
+          <div class="fields">
+            <input class="field full" id="g-nombre" type="text" maxlength="80" placeholder="Nombre de la guía" autocomplete="off" aria-label="Nombre de la guía">
+            <label class="drop"><input id="g-pdf" type="file" accept="application/pdf,.pdf" aria-label="Archivo PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5M7.5 9.5L12 5l4.5 4.5M5 19h14"/></svg><span id="g-pdf-n">Elegir PDF (máx. 20 MB)</span></label>
+            <label class="drop"><input id="g-portada" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Imagen de portada"><img id="g-prev" alt="" hidden><svg id="g-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg><span id="g-portada-n">Portada (opcional, máx. 5 MB)</span></label>
+            <span class="or">o</span>
+            <input class="field full" id="g-url" type="url" maxlength="500" placeholder="Pega un enlace: https://…" autocomplete="off" aria-label="Enlace de la guía">
+          </div>
+          <div class="row-end"><button class="btn blue" id="g-btn" type="submit">Publicar guía</button><span class="msg" id="g-msg" role="status"></span></div>
+        </form>
+      </div>
+      <ul class="guides" id="l-guias" aria-live="polite">
+        <li class="skel"></li><li class="skel"></li><li class="skel"></li>
+      </ul>
+      <p class="note" id="n-guias" hidden></p>
+    </div>
+  </section>
+
+  <section id="atajos" class="light" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow rv">Atajos</span>
+        <h2 class="rv" style="--d:.06s">Un toque y listo.</h2>
+        <p class="rv" style="--d:.12s">Enlaces rápidos para instalar o usar al instante.</p>
+      </div>
+      <div class="editor" id="ed-atajo">
+        <h3>Agregar un atajo</h3>
+        <p class="hint">Nombre y enlace completo, por ejemplo el de iCloud de un atajo de iPhone.</p>
+        <form id="f-atajo" novalidate>
+          <div class="fields">
+            <input class="field" id="a-nombre" type="text" maxlength="80" placeholder="Nombre del atajo" autocomplete="off" aria-label="Nombre del atajo">
+            <input class="field" id="a-url" type="url" maxlength="500" placeholder="https://…" autocomplete="off" aria-label="Enlace del atajo">
+          </div>
+          <div class="row-end"><button class="btn blue" id="a-btn" type="submit">Agregar atajo</button><span class="msg" id="a-msg" role="status"></span></div>
+        </form>
+      </div>
+      <ul class="shortcuts" id="l-atajos" aria-live="polite">
+        <li class="sc"><span class="ic"></span><span class="m"><span class="n">Cargando…</span></span></li>
+      </ul>
+      <p class="note" id="n-atajos" hidden></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Juan David Lozano</span>
+    <button class="linkbtn" id="open-login" type="button">Administrar</button>
+  </div>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Secciones">
+  <a href="#proyectos" data-s="proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M8 21h8M12 18v3"/></svg>Proyectos</a>
+  <a href="#oficinas" data-s="oficinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>Oficinas</a>
+  <a href="#guias" data-s="guias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Guías</a>
+  <a href="#atajos" data-s="atajos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>Atajos</a>
+</nav>
+
+<div class="adminbar" id="adminbar"><span>Modo edición</span><button type="button" id="logout">Salir</button></div>
+
+<div class="modal" id="login" role="dialog" aria-modal="true" aria-labelledby="login-t">
+  <div class="sheet">
+    <h3 id="login-t">Administrar</h3>
+    <p>Entra con tu cuenta de administrador de AI Plata para publicar guías y atajos.</p>
+    <form id="f-login" novalidate>
+      <input class="field" id="l-email" type="email" placeholder="Correo" autocomplete="username" aria-label="Correo">
+      <input class="field" id="l-pass" type="password" placeholder="Contraseña" autocomplete="current-password" aria-label="Contraseña">
+      <span class="msg" id="l-msg" role="status"></span>
+      <div class="row-end"><button class="linkbtn" type="button" id="l-cancel">Cancelar</button><button class="btn primary" id="l-btn" type="submit">Entrar</button></div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var SB_URL = "https://xiqohcxfmobebnicyrfu.supabase.co";
+  var SB_KEY = "sb_publishable_ctQvdAdJtiCptQJr-2uSkA_7KSV2Qzm";
+  var BUCKET = "hub";
+  var $ = function(id){ return document.getElementById(id); };
+  var calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
+  $("yr").textContent = new Date().getFullYear();
+
+  /* ---------- Animaciones ---------- */
+  // Titular: palabras que suben una a una
+  if (!calm && document.animate) {
+    document.querySelectorAll("#headline .w > span").forEach(function(s, i){
+      s.animate([{transform:"translateY(110%)",filter:"blur(6px)"},{transform:"none",filter:"blur(0)"}],{duration:1100,delay:120 + i*70,easing:"cubic-bezier(.16,1,.3,1)",fill:"backwards"});
+    });
+    document.querySelectorAll(".hero .lead,.hero .cta,.hero .kicker").forEach(function(el, i){
+      el.animate([{opacity:0,transform:"translateY(18px)"},{opacity:1,transform:"none"}],{duration:1000,delay:i===2?0:600 + i*120,easing:"cubic-bezier(.16,1,.3,1)",fill:"backwards"});
+    });
+  }
+  // Abanico de vistas previas
+  var fan = $("fan");
+  setTimeout(function(){ fan.classList.add("open"); }, calm ? 0 : 350);
+
+  // Revelado al entrar en pantalla
+  var rvs = document.querySelectorAll(".rv");
+  if ("IntersectionObserver" in window && !calm) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:.08});
+    rvs.forEach(function(el){ io.observe(el); });
+  } else { rvs.forEach(function(el){ el.classList.add("in"); }); }
+
+  // Contadores
+  function countUp(el){
+    var to = +el.dataset.count, t0 = null;
+    if (calm) return;
+    function step(t){ if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 1200); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window) {
+    var cio = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } }); }, {threshold:.6});
+    document.querySelectorAll("[data-count]").forEach(function(el){ cio.observe(el); });
+  }
+
+  // Efectos ligados al scroll: barra, progreso, abanico y pantallas que se enderezan
+  var top = $("top"), bar = document.querySelector(".progress"), tabbar = $("tabbar");
+  var devices = Array.prototype.slice.call(document.querySelectorAll(".device"));
+  var ticking = false;
+  function onScroll(){
+    ticking = false;
+    var y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    top.classList.toggle("solid", y > 10);
+    bar.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
+    tabbar.classList.toggle("show-bar", y > innerHeight * .5);
+    if (calm) return;
+    fan.style.transform = "translate3d(0," + (y * .18) + "px,0)";
+    devices.forEach(function(d){
+      var r = d.getBoundingClientRect();
+      var p = 1 - Math.min(1, Math.max(0, (r.top - innerHeight * .25) / (innerHeight * .75)));
+      d.style.setProperty("--rx", ((1 - p) * 16).toFixed(2) + "deg");
+      d.style.setProperty("--sc", (0.9 + p * .1).toFixed(3));
+      d.style.setProperty("--ty", ((1 - p) * 40).toFixed(1) + "px");
+    });
+  }
+  addEventListener("scroll", function(){ if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, {passive:true});
+  addEventListener("resize", onScroll);
+  onScroll();
+
+  // Inclinación con el cursor en escritorio
+  if (fine && !calm) {
+    document.querySelectorAll(".show").forEach(function(s){
+      var d = s.querySelector(".device");
+      s.addEventListener("pointermove", function(e){
+        var r = s.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5;
+        d.style.setProperty("--ry", (x * -6).toFixed(2) + "deg");
+      });
+      s.addEventListener("pointerleave", function(){ d.style.setProperty("--ry", "0deg"); });
+    });
+  }
+
+  // Sección activa en la navegación
+  var navLinks = document.querySelectorAll(".links a, .tabbar a");
+  if ("IntersectionObserver" in window) {
+    var sio = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        navLinks.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); });
+      });
+    }, {rootMargin:"-45% 0px -50% 0px"});
+    ["proyectos","oficinas","guias","atajos"].forEach(function(id){ sio.observe($(id)); });
+  }
+
+  /* ---------- Datos ---------- */
+  var ICON_PDF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9.5A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h4"/></svg>';
+  var ICON_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>';
+  var ICON_BOLT = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>';
+
+  function safeUrl(u){ try { var p = new URL(String(u)); return p.protocol === "https:" ? p.href : null; } catch (e) { return null; } }
+  function host(u){ try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } }
+  function size(n){ return n > 0 ? (n < 1048576 ? Math.max(1, Math.round(n / 1024)) + " KB" : (n / 1048576).toFixed(1) + " MB") : ""; }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function say(node, text, kind){ node.textContent = text; node.className = "msg" + (kind ? " " + kind : ""); }
+
+  var sb = null;
+  try { if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY, {auth:{persistSession:true, autoRefreshToken:true}}); } catch (e) { sb = null; }
+  function pub(path){ return sb ? sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl : ""; }
+
+  var isAdmin = false, guias = [], atajos = [];
+
+  function delBtn(onConfirm){
+    var b = el("button", "del", "Eliminar"); b.type = "button"; var t;
+    b.addEventListener("click", function(ev){
+      ev.preventDefault();
+      if (!b.classList.contains("sure")) { b.classList.add("sure"); b.textContent = "¿Seguro?"; t = setTimeout(function(){ b.classList.remove("sure"); b.textContent = "Eliminar"; }, 3500); return; }
+      clearTimeout(t); b.disabled = true; b.textContent = "Eliminando…";
+      onConfirm().then(load).catch(function(){ b.disabled = false; b.classList.remove("sure"); b.textContent = "No se pudo. Reintentar"; });
+    });
+    return b;
+  }
+
+  function renderGuias(){
+    var ul = $("l-guias"); ul.textContent = "";
+    var n = 0;
+    guias.forEach(function(g, i){
+      var isPdf = g.tipo === "pdf" && g.archivo_path;
+      var href = isPdf ? pub(g.archivo_path) : safeUrl(g.url);
+      if (!href) return;
+      n++;
+      var li = el("li", "guide rv in");
+      if (!calm) li.animate([{opacity:0,transform:"translateY(24px)"},{opacity:1,transform:"none"}],{duration:700,delay:i*60,easing:"cubic-bezier(.16,1,.3,1)",fill:"backwards"});
+      var cover = el("a", "cover"); cover.href = href; cover.target = "_blank"; cover.rel = "noopener"; cover.setAttribute("aria-label", "Abrir " + g.nombre);
+      if (g.portada_path) {
+        var im = el("img"); im.alt = "Portada de " + g.nombre; im.loading = "lazy"; im.src = pub(g.portada_path);
+        im.addEventListener("error", function(){ cover.innerHTML = isPdf ? ICON_PDF : ICON_LINK; });
+        cover.append(im);
+      } else cover.innerHTML = isPdf ? ICON_PDF : ICON_LINK;
+      var gb = el("div", "gb");
+      gb.append(el("span", "gn", g.nombre), el("span", "gs", isPdf ? ["PDF", size(g.tamano)].filter(Boolean).join(" · ") : "Enlace · " + host(href)));
+      var ga = el("div", "ga");
+      var open = el("a", "pillbtn", isPdf ? "Abrir PDF" : "Abrir enlace"); open.href = href; open.target = "_blank"; open.rel = "noopener";
+      ga.append(open);
+      if (isAdmin) ga.append(delBtn(function(){
+        var paths = [g.archivo_path, g.portada_path].filter(Boolean);
+        return sb.from("hub_guias").delete().eq("id", g.id).then(function(r){
+          if (r.error) throw r.error;
+          if (paths.length) return sb.storage.from(BUCKET).remove(paths);
+        });
+      }));
+      li.append(cover, gb, ga);
+      ul.append(li);
+    });
+    if (!n) {
+      var e = el("li", "empty"); e.append(el("strong", null, "Muy pronto"), document.createTextNode(isAdmin ? "Publica tu primera guía con el formulario de arriba." : "Las guías aparecerán aquí en cuanto se publiquen."));
+      ul.append(e);
+    }
+  }
+
+  function renderAtajos(){
+    var ul = $("l-atajos"); ul.textContent = "";
+    var n = 0;
+    atajos.forEach(function(a){
+      var u = safeUrl(a.url); if (!u) return; n++;
+      var li = el("li", "sc");
+      var ic = el("span", "ic"); ic.innerHTML = ICON_BOLT;
+      var m = el("a", "m"); m.href = u; m.target = "_blank"; m.rel = "noopener";
+      m.append(el("span", "n", a.nombre), el("span", "h", host(u)));
+      var go = el("a", "go", "Abrir"); go.href = u; go.target = "_blank"; go.rel = "noopener"; go.setAttribute("aria-label", "Abrir " + a.nombre);
+      li.append(ic, m, go);
+      if (isAdmin) li.append(delBtn(function(){ return sb.from("hub_atajos").delete().eq("id", a.id).then(function(r){ if (r.error) throw r.error; }); }));
+      ul.append(li);
+    });
+    if (!n) {
+      var e = el("li", "empty"); e.append(el("strong", null, "Muy pronto"), document.createTextNode(isAdmin ? "Agrega tu primer atajo con el formulario de arriba." : "Los atajos aparecerán aquí en cuanto se publiquen."));
+      ul.append(e);
+    }
+  }
+
+  function note(id, text){ var n = $(id); n.hidden = !text; n.textContent = text || ""; n.className = "note" + (text ? " err" : ""); }
+
+  function load(){
+    if (!sb) { guias = []; atajos = []; renderGuias(); renderAtajos(); note("n-guias", "No se pudo cargar el contenido. Revisa tu conexión y recarga la página."); return Promise.resolve(); }
+    var slow = setTimeout(function(){ note("n-guias", "Está tardando más de lo normal en cargar…"); }, 10000);
+    return Promise.all([
+      sb.from("hub_guias").select("*").order("creado_en", {ascending:false}),
+      sb.from("hub_atajos").select("*").order("creado_en", {ascending:false})
+    ]).then(function(r){
+      clearTimeout(slow);
+      if (r[0].error) { note("n-guias", "No se pudieron cargar las guías. Recarga la página."); } else { note("n-guias", ""); guias = r[0].data || []; }
+      if (r[1].error) { note("n-atajos", "No se pudieron cargar los atajos. Recarga la página."); } else { note("n-atajos", ""); atajos = r[1].data || []; }
+      renderGuias(); renderAtajos();
+    }).catch(function(){
+      clearTimeout(slow); note("n-guias", "No se pudo cargar el contenido. Revisa tu conexión y recarga la página."); renderGuias(); renderAtajos();
+    });
+  }
+  load();
+
+  /* ---------- Administración ---------- */
+  var modal = $("login");
+  function openLogin(){ modal.classList.add("open"); say($("l-msg"), ""); setTimeout(function(){ $("l-email").focus(); }, 50); }
+  function closeLogin(){ modal.classList.remove("open"); }
+  $("open-login").addEventListener("click", function(){ isAdmin ? scrollTo({top:$("guias").offsetTop - 60, behavior:"smooth"}) : openLogin(); });
+  $("l-cancel").addEventListener("click", closeLogin);
+  modal.addEventListener("click", function(e){ if (e.target === modal) closeLogin(); });
+  addEventListener("keydown", function(e){ if (e.key === "Escape") closeLogin(); });
+
+  function setAdmin(on){
+    isAdmin = on;
+    document.body.classList.toggle("admin", on);
+    $("open-login").textContent = on ? "Modo edición activo" : "Administrar";
+    renderGuias(); renderAtajos();
+  }
+  function checkAdmin(){
+    if (!sb) return Promise.resolve(false);
+    return sb.auth.getSession().then(function(s){
+      if (!s.data || !s.data.session) return false;
+      return sb.rpc("es_admin").then(function(r){ return !r.error && r.data === true; });
+    }).catch(function(){ return false; });
+  }
+  checkAdmin().then(function(ok){ if (ok) setAdmin(true); });
+
+  $("f-login").addEventListener("submit", function(e){
+    e.preventDefault();
+    var email = $("l-email").value.trim(), pass = $("l-pass").value, m = $("l-msg"), b = $("l-btn");
+    if (!sb) return say(m, "No hay conexión con el servidor. Recarga la página.", "err");
+    if (!email || !pass) return say(m, "Escribe tu correo y tu contraseña.", "err");
+    b.disabled = true; say(m, "Entrando…");
+    sb.auth.signInWithPassword({email:email, password:pass}).then(function(r){
+      if (r.error) throw new Error(/invalid/i.test(r.error.message) ? "Correo o contraseña incorrectos." : "No se pudo iniciar sesión. Intenta de nuevo.");
+      return checkAdmin();
+    }).then(function(ok){
+      if (!ok) { sb.auth.signOut(); throw new Error("Esta cuenta no tiene permiso para editar el hub."); }
+      $("l-pass").value = ""; closeLogin(); setAdmin(true);
+      scrollTo({top:$("guias").offsetTop - 60, behavior:calm ? "auto" : "smooth"});
+    }).catch(function(err){ say(m, err.message || "No se pudo iniciar sesión.", "err"); }).then(function(){ b.disabled = false; });
+  });
+  $("logout").addEventListener("click", function(){ if (sb) sb.auth.signOut(); setAdmin(false); });
+
+  // Vista previa de portada
+  var prevUrl = null;
+  function resetCover(){ if (prevUrl) { URL.revokeObjectURL(prevUrl); prevUrl = null; } $("g-prev").hidden = true; $("g-prev").removeAttribute("src"); $("g-ico").style.display = ""; $("g-portada-n").textContent = "Portada (opcional, máx. 5 MB)"; }
+  $("g-portada").addEventListener("change", function(){
+    var f = this.files[0]; resetCover(); if (!f) return;
+    $("g-portada-n").textContent = f.name;
+    try { prevUrl = URL.createObjectURL(f); $("g-prev").src = prevUrl; $("g-prev").hidden = false; $("g-ico").style.display = "none"; } catch (e) {}
+  });
+  $("g-pdf").addEventListener("change", function(){
+    var f = this.files[0];
+    $("g-pdf-n").textContent = f ? f.name : "Elegir PDF (máx. 20 MB)";
+    if (f && !$("g-nombre").value.trim()) $("g-nombre").value = f.name.replace(/\.pdf$/i, "").slice(0, 80);
+  });
+
+  function uid(){ return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); }
+  function ext(f){ return ({"image/jpeg":"jpg","image/png":"png","image/webp":"webp"})[f.type] || "bin"; }
+
+  $("f-guia").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("g-msg"), b = $("g-btn");
+    var nombre = $("g-nombre").value.trim(), pdf = $("g-pdf").files[0], cov = $("g-portada").files[0];
+    var raw = $("g-url").value.trim(), link = raw ? safeUrl(raw) : null;
+    if (!nombre) return say(m, "Escribe el nombre de la guía.", "err");
+    if (!pdf && !raw) return say(m, "Elige un PDF o pega un enlace.", "err");
+    if (pdf && raw) return say(m, "Deja solo una opción: el PDF o el enlace.", "err");
+    if (raw && !link) return say(m, "Pega un enlace completo que empiece por https://", "err");
+    if (pdf && pdf.type !== "application/pdf" && !/\.pdf$/i.test(pdf.name)) return say(m, "El archivo debe ser un PDF.", "err");
+    if (pdf && pdf.size > 20 * 1048576) return say(m, "El PDF pesa más de 20 MB. Comprímelo y vuelve a intentar.", "err");
+    if (cov && !/^image\/(png|jpeg|webp)$/.test(cov.type)) return say(m, "La portada debe ser JPG, PNG o WebP.", "err");
+    if (cov && cov.size > 5 * 1048576) return say(m, "La portada pesa más de 5 MB. Usa una imagen más liviana.", "err");
+    b.disabled = true; say(m, "Publicando…");
+    var id = uid(), uploaded = [];
+    var store = sb.storage.from(BUCKET);
+    var pPdf = pdf ? store.upload("guias/" + id + ".pdf", pdf, {contentType:"application/pdf", cacheControl:"31536000", upsert:false}).then(function(r){ if (r.error) throw r.error; uploaded.push(r.data.path); return r.data.path; }) : Promise.resolve(null);
+    pPdf.then(function(pdfPath){
+      var pCov = cov ? store.upload("portadas/" + id + "." + ext(cov), cov, {contentType:cov.type, cacheControl:"31536000", upsert:false}).then(function(r){ if (r.error) throw r.error; uploaded.push(r.data.path); return r.data.path; }) : Promise.resolve(null);
+      return pCov.then(function(covPath){
+        var row = {nombre:nombre, tipo:pdfPath ? "pdf" : "enlace", archivo_path:pdfPath, url:pdfPath ? null : link, portada_path:covPath, tamano:pdf ? pdf.size : null};
+        return sb.from("hub_guias").insert(row).then(function(r){ if (r.error) throw r.error; });
+      });
+    }).then(function(){
+      $("f-guia").reset(); resetCover(); $("g-pdf-n").textContent = "Elegir PDF (máx. 20 MB)";
+      say(m, "Guía publicada.", "ok"); return load();
+    }).catch(function(){
+      if (uploaded.length) store.remove(uploaded);
+      say(m, "No se pudo publicar. Revisa tu conexión y vuelve a intentar.", "err");
+    }).then(function(){ b.disabled = false; });
+  });
+
+  $("f-atajo").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("a-msg"), b = $("a-btn"), nombre = $("a-nombre").value.trim(), u = safeUrl($("a-url").value.trim());
+    if (!nombre) return say(m, "Escribe el nombre del atajo.", "err");
+    if (!u) return say(m, "Pega un enlace completo que empiece por https://", "err");
+    b.disabled = true; say(m, "Guardando…");
+    sb.from("hub_atajos").insert({nombre:nombre, url:u}).then(function(r){
+      if (r.error) throw r.error;
+      $("f-atajo").reset(); say(m, "Atajo publicado.", "ok"); return load();
+    }).catch(function(){ say(m, "No se pudo guardar. Vuelve a intentar.", "err"); }).then(function(){ b.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
