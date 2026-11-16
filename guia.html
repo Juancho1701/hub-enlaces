@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía · Juan David</title>
+<meta name="description" content="Guías paso a paso de Juan David Lozano.">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guías paso a paso · Juan David">
+<meta property="og:description" content="Guías de tecnología paso a paso, gratis.">
+<meta property="og:image" content="https://links.e-nova.com.co/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230a5cd5'/%3E%3Cstop offset='1' stop-color='%23142a55'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='-apple-system,Segoe UI,sans-serif' font-size='26' font-weight='700' fill='white'%3EJD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://xiqohcxfmobebnicyrfu.supabase.co" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Plan: misma identidad del hub (gris Apple, tinta casi negra, azul profundo). Portada grande arriba,
+   columna de lectura de ~70 caracteres con índice fijo a la derecha en escritorio. */
+:root{
+  --bg:#f5f5f7; --surface:#ffffff; --ink:#1d1d1f; --muted:#6e6e73; --line:rgba(0,0,0,.08);
+  --accent:#0a5cd5; --accent-soft:rgba(10,92,213,.09);
+  --warn:#b06a00; --warn-soft:rgba(176,106,0,.08); --ok:#1a8f5c;
+  --code-bg:#0f1218; --code-ink:#e6e9ef;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 18px 40px -20px rgba(0,0,0,.22);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Manrope","Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+h1,h2,h3{letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,var(--accent),#6a5cf0);transform-origin:0 50%;transform:scaleX(0)}
+.top{position:sticky;top:0;z-index:50;background:rgba(245,245,247,.75);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none}
+.brand i{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#142a55);display:grid;place-items:center;color:#fff;font-style:normal;font-size:12px;font-weight:800}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;transition:background .25s,color .25s}
+.back:hover{background:rgba(0,0,0,.05);color:var(--ink)}
+.back svg{width:15px;height:15px}
+
+.hero{padding:44px 0 10px}
+.cover{border-radius:var(--r-xl);overflow:hidden;background:linear-gradient(135deg,var(--accent-soft),rgba(106,92,240,.12));aspect-ratio:16/7;box-shadow:var(--shadow);display:grid;place-items:center;color:var(--accent)}
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover svg{width:64px;height:64px}
+.head{max-width:760px;margin:40px 0 0}
+.kicker{font-size:14px;font-weight:700;color:var(--accent);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kicker span{color:var(--muted);font-weight:500}
+.head h1{font-size:clamp(38px,6vw,64px);font-weight:800;letter-spacing:-.045em;margin:12px 0 16px}
+.lead{font-size:clamp(18px,2.2vw,21px);color:var(--muted);line-height:1.5}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 20px;border-radius:999px;font-weight:600;font-size:15px;border:0;cursor:pointer;text-decoration:none;transition:transform .3s var(--ease),background .25s}
+.btn:active{transform:scale(.96)}
+.btn svg{width:16px;height:16px}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.ghost{background:var(--surface);border:1px solid var(--line)}
+.btn.ghost:hover{background:#fafafc}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:56px;padding:44px 0 80px;align-items:start}
+.toc{position:sticky;top:84px;font-size:14px}
+.toc b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{list-style:none;display:flex;flex-direction:column;gap:2px;border-left:2px solid var(--line)}
+.toc a{display:block;padding:6px 0 6px 14px;margin-left:-2px;border-left:2px solid transparent;color:var(--muted);text-decoration:none;line-height:1.35;transition:color .2s,border-color .2s}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+
+/* Contenido de la guía */
+.prose{max-width:720px;min-width:0}
+.prose > *+*{margin-top:18px}
+.prose h2{font-size:clamp(28px,3.6vw,36px);font-weight:800;margin-top:56px;padding-top:6px}
+.prose h3{font-size:22px;font-weight:700;margin-top:40px;letter-spacing:-.02em}
+.prose h2+*,.prose h3+*{margin-top:12px}
+.prose p,.prose li{color:#2a2a2e}
+.prose em{color:var(--muted)}
+.prose a{color:var(--accent);text-underline-offset:3px}
+.prose ul,.prose ol{padding-left:1.4em;display:flex;flex-direction:column;gap:8px}
+.prose ol{list-style:none;counter-reset:n;padding-left:0}
+.prose ol>li{counter-increment:n;position:relative;padding-left:44px}
+.prose ol>li::before{content:counter(n);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:14px;display:grid;place-items:center}
+.prose li::marker{color:var(--muted)}
+.prose strong{font-weight:700;color:var(--ink)}
+.prose :not(pre)>code{font-family:var(--mono);font-size:.84em;background:rgba(0,0,0,.055);padding:2px 6px;border-radius:6px;overflow-wrap:anywhere}
+.prose blockquote{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r-md);padding:16px 20px;color:#2a2a2e}
+.prose blockquote.warn{border-left-color:var(--warn);background:linear-gradient(90deg,var(--warn-soft),var(--surface) 40%)}
+.prose blockquote p+p{margin-top:8px}
+.codebox{position:relative;border-radius:var(--r-md);background:var(--code-bg);box-shadow:0 14px 30px -18px rgba(0,0,0,.5)}
+.codebox pre{overflow-x:auto;padding:18px 20px;padding-right:96px;font:400 14px/1.7 var(--mono);color:var(--code-ink)}
+.codebox button{position:absolute;top:10px;right:10px;border:0;cursor:pointer;font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;transition:background .2s}
+.codebox button:hover{background:rgba(255,255,255,.22)}
+.tablebox{overflow-x:auto;border-radius:var(--r-md);background:var(--surface);box-shadow:var(--shadow)}
+.prose table{border-collapse:collapse;width:100%;min-width:520px;font-size:15.5px;line-height:1.5}
+.prose th,.prose td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.prose th{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;background:#fafafc}
+.prose tr:last-child td{border-bottom:0}
+.prose img{border-radius:var(--r-md)}
+.prose hr{border:0;height:1px;background:var(--line);margin:40px 0}
+
+.state{padding:90px 0;text-align:center;color:var(--muted)}
+.state h1{color:var(--ink);font-size:36px;margin-bottom:10px}
+.skel{border-radius:12px;background:linear-gradient(100deg,#e9e9ee 30%,#f4f4f7 50%,#e9e9ee 70%);background-size:300% 100%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{to{background-position:-150% 0}}
+
+.more{border-top:1px solid var(--line);padding:56px 0 90px}
+.more h2{font-size:28px;margin-bottom:22px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;list-style:none}
+.mcard{display:flex;flex-direction:column;border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;transition:transform .5s var(--ease)}
+.mcard:hover{transform:translateY(-5px)}
+.mcard .mc{aspect-ratio:16/9;background:var(--accent-soft);overflow:hidden}
+.mcard .mc img{width:100%;height:100%;object-fit:cover}
+.mcard b{padding:14px 18px 18px;font-size:17px;letter-spacing:-.01em}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;transition:all .4s var(--ease);pointer-events:none;z-index:70}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform 1s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .toc{display:none}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .cover{aspect-ratio:16/10;border-radius:22px}
+  .hero{padding-top:24px}
+  .head{margin-top:26px}
+  .btn{flex:1 1 auto;justify-content:center}
+  .prose h2{margin-top:44px}
+  .prose ol>li{padding-left:40px}
+  .codebox pre{font-size:13px;padding:16px;padding-top:46px}
+  .back span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add("js")</script>
+<div class="progress" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><i>JD</i>Juan David</a>
+    <a class="back" href="/#guias"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg><span>Todas las guías</span></a>
+  </div>
+</header>
+
+<main id="app">
+  <div class="wrap hero">
+    <div class="cover skel" style="aspect-ratio:16/7"></div>
+    <div class="head">
+      <div class="skel" style="height:18px;width:120px"></div>
+      <div class="skel" style="height:52px;width:80%;margin-top:18px"></div>
+      <div class="skel" style="height:22px;width:60%;margin-top:18px"></div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var SB_URL = "https://xiqohcxfmobebnicyrfu.supabase.co";
+  var SB_KEY = "sb_publishable_ctQvdAdJtiCptQJr-2uSkA_7KSV2Qzm";
+  var BUCKET = "hub";
+  var calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var app = document.getElementById("app");
+  var ICON_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9.5A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4M9 13h6M9 16.5h4"/></svg>';
+  var ICON_SHARE = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10V2M5 5l3-3 3 3M3 9v4h10V9"/></svg>';
+  var ICON_OUT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"/></svg>';
+
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function safeUrl(u){ try { var p = new URL(String(u)); return p.protocol === "https:" ? p.href : null; } catch (e) { return null; } }
+  function toast(msg){ var t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(function(){ t.classList.remove("show"); }, 2200); }
+
+  var slug = (location.pathname.match(/^\/guias\/([a-z0-9-]+)\/?$/) || [])[1] || new URLSearchParams(location.search).get("g") || "";
+  slug = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug) ? slug : "";
+
+  var sb = null;
+  try { if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY, {auth:{persistSession:false}}); } catch (e) {}
+  function pub(path){ return sb ? sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl : ""; }
+  function coverOf(g){
+    if (!g.portada_path) return null;
+    if (/^\/img\/[a-z0-9\/._-]+$/i.test(g.portada_path)) return g.portada_path;
+    if (/^https:/.test(g.portada_path)) return safeUrl(g.portada_path);
+    return pub(g.portada_path);
+  }
+
+  function showState(title, text){
+    app.innerHTML = "";
+    var s = el("div", "wrap state");
+    s.append(el("h1", null, title), el("p", null, text));
+    var a = el("a", "btn primary", "Ver todas las guías"); a.href = "/#guias"; a.style.marginTop = "26px";
+    s.append(a); app.append(s);
+    document.title = title + " · Juan David";
+  }
+
+  function slugify(s){ return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "seccion"; }
+
+  function enhance(prose){
+    // Bloques de código con botón Copiar
+    prose.querySelectorAll("pre").forEach(function(pre){
+      var box = el("div", "codebox"); pre.parentNode.insertBefore(box, pre); box.append(pre);
+      var b = el("button", null, "Copiar"); b.type = "button";
+      b.addEventListener("click", function(){
+        var txt = pre.innerText;
+        var ok = function(){ b.textContent = "Copiado"; setTimeout(function(){ b.textContent = "Copiar"; }, 1600); };
+        try { navigator.clipboard.writeText(txt).then(ok, function(){ selectIn(pre, b); }); } catch (e) { selectIn(pre, b); }
+      });
+      box.append(b);
+    });
+    // Tablas desplazables
+    prose.querySelectorAll("table").forEach(function(t){ var w = el("div", "tablebox"); t.parentNode.insertBefore(w, t); w.append(t); });
+    // Avisos
+    prose.querySelectorAll("blockquote").forEach(function(q){ if (/^\s*(atención|cuidado|importante|ojo)\b/i.test(q.textContent)) q.classList.add("warn"); });
+    // Enlaces externos en pestaña nueva
+    prose.querySelectorAll("a[href]").forEach(function(a){ if (/^https?:/i.test(a.getAttribute("href")) && a.hostname !== location.hostname) { a.target = "_blank"; a.rel = "noopener"; } });
+    // Imágenes perezosas
+    prose.querySelectorAll("img").forEach(function(i){ i.loading = "lazy"; });
+    // Ids para el índice
+    var used = {}, heads = [];
+    prose.querySelectorAll("h2").forEach(function(h){
+      var id = slugify(h.textContent); while (used[id]) id += "-2"; used[id] = 1; h.id = id; heads.push(h);
+    });
+    return heads;
+  }
+  function selectIn(pre, b){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selecciona y copia"; }
+
+  function render(g, md, others){
+    var isPdf = g.tipo === "pdf" && g.archivo_path;
+    var pdfUrl = isPdf ? pub(g.archivo_path) : null;
+    var orig = g.tipo === "enlace" ? safeUrl(g.url) : null;
+    document.title = g.nombre + " · Guía de Juan David";
+    var md2 = document.querySelector('meta[name="description"]'); if (md2 && g.descripcion) md2.setAttribute("content", g.descripcion);
+
+    app.innerHTML = "";
+    var hero = el("div", "wrap hero");
+    var cover = el("div", "cover rv"); var src = coverOf(g);
+    if (src) { var im = el("img"); im.alt = "Portada de la guía " + g.nombre; im.src = src; im.decoding = "async"; cover.append(im); } else cover.innerHTML = ICON_DOC;
+    var head = el("div", "head rv"); head.style.setProperty("transition-delay", ".08s");
+    var k = el("div", "kicker", "Guía paso a paso");
+    var words = md ? md.replace(/```[\s\S]*?```/g, "").split(/\s+/).length : 0;
+    if (words > 60) k.append(el("span", null, "· " + Math.max(1, Math.round(words / 200)) + " min de lectura"));
+    head.append(k, el("h1", null, g.nombre));
+    if (g.descripcion) head.append(el("p", "lead", g.descripcion));
+    var act = el("div", "actions");
+    var sh = el("button", "btn primary"); sh.type = "button"; sh.innerHTML = ICON_SHARE; sh.append(document.createTextNode("Compartir guía"));
+    sh.addEventListener("click", function(){
+      var data = {title:g.nombre, text:g.descripcion || g.nombre, url:location.href};
+      if (navigator.share) { navigator.share(data).catch(function(){}); return; }
+      try { navigator.clipboard.writeText(location.href).then(function(){ toast("Enlace copiado"); }, function(){ toast(location.href); }); } catch (e) { toast(location.href); }
+    });
+    act.append(sh);
+    if (pdfUrl) { var p = el("a", "btn ghost"); p.href = pdfUrl; p.target = "_blank"; p.rel = "noopener"; p.innerHTML = ICON_OUT; p.append(document.createTextNode("Abrir PDF")); act.append(p); }
+    if (orig && md) { var o = el("a", "btn ghost"); o.href = orig; o.target = "_blank"; o.rel = "noopener"; o.innerHTML = ICON_OUT; o.append(document.createTextNode("Ver versión original")); act.append(o); }
+    head.append(act);
+    hero.append(cover, head);
+    app.append(hero);
+
+    var layout = el("div", "wrap layout");
+    var prose = el("article", "prose");
+    if (md && window.marked && window.DOMPurify) {
+      prose.innerHTML = DOMPurify.sanitize(marked.parse(md, {gfm:true, breaks:false}), {USE_PROFILES:{html:true}});
+    } else if (md) {
+      md.split(/\n{2,}/).forEach(function(par){ prose.append(el("p", null, par)); });
+    } else {
+      prose.append(el("p", null, isPdf ? "Esta guía está en PDF. Ábrela con el botón de arriba." : "Esta guía está en otra página. Ábrela con el botón de abajo."));
+      if (orig) { var go = el("a", "btn primary"); go.href = orig; go.target = "_blank"; go.rel = "noopener"; go.innerHTML = ICON_OUT; go.append(document.createTextNode("Abrir la guía")); prose.append(go); }
+    }
+    var heads = enhance(prose);
+    layout.append(prose);
+    if (heads.length > 2) {
+      var toc = el("nav", "toc"); toc.setAttribute("aria-label", "Contenido de la guía");
+      toc.append(el("b", null, "En esta guía"));
+      var ol = el("ol");
+      heads.forEach(function(h){ var li = el("li"); var a = el("a", null, h.textContent.replace(/^Paso \d+\.\s*/, "")); a.href = "#" + h.id; a.dataset.id = h.id; li.append(a); ol.append(li); });
+      toc.append(ol); layout.append(toc);
+      if ("IntersectionObserver" in window) {
+        var links = toc.querySelectorAll("a");
+        var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) links.forEach(function(a){ a.classList.toggle("on", a.dataset.id === e.target.id); }); }); }, {rootMargin:"-20% 0px -70% 0px"});
+        heads.forEach(function(h){ io.observe(h); });
+      }
+    }
+    app.append(layout);
+
+    var rest = others.filter(function(o){ return o.id !== g.id && o.slug; }).slice(0, 3);
+    if (rest.length) {
+      var more = el("section", "more"); var w = el("div", "wrap");
+      w.append(el("h2", null, "Más guías"));
+      var grid = el("ul", "mgrid");
+      rest.forEach(function(o){
+        var li = el("li"); var a = el("a", "mcard"); a.href = "/guias/" + o.slug;
+        var mc = el("div", "mc"); var s2 = coverOf(o); if (s2) { var i2 = el("img"); i2.alt = ""; i2.loading = "lazy"; i2.src = s2; mc.append(i2); }
+        a.append(mc, el("b", null, o.nombre)); li.append(a); grid.append(li);
+      });
+      w.append(grid); more.append(w); app.append(more);
+    }
+
+    // Revelado y barra de lectura
+    var rvs = app.querySelectorAll(".rv");
+    requestAnimationFrame(function(){ rvs.forEach(function(r){ r.classList.add("in"); }); });
+    if (location.hash) { var t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) setTimeout(function(){ t.scrollIntoView(); }, 50); }
+  }
+
+  var bar = document.querySelector(".progress");
+  addEventListener("scroll", function(){
+    var h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (h > 0 ? scrollY / h : 0) + ")";
+  }, {passive:true});
+
+  if (!slug) { showState("Guía no encontrada", "El enlace no corresponde a ninguna guía."); return; }
+  if (!sb) { showState("No se pudo cargar", "Revisa tu conexión y recarga la página."); return; }
+
+  var slow = setTimeout(function(){ toast("Está tardando más de lo normal…"); }, 10000);
+  Promise.all([
+    sb.from("hub_guias").select("*").eq("slug", slug).maybeSingle(),
+    sb.from("hub_guias").select("id,nombre,slug,portada_path").order("creado_en", {ascending:false}).limit(8)
+  ]).then(function(r){
+    clearTimeout(slow);
+    if (r[0].error) throw r[0].error;
+    var g = r[0].data;
+    if (!g) { showState("Guía no encontrada", "Puede que la hayan movido o borrado."); return; }
+    var others = (r[1].data || []);
+    if (g.contenido) return render(g, g.contenido, others);
+    return fetch("/guias/contenido/" + slug + ".md", {cache:"no-cache"}).then(function(res){ return res.ok ? res.text() : ""; }).catch(function(){ return ""; }).then(function(md){ render(g, md, others); });
+  }).catch(function(){
+    clearTimeout(slow);
+    showState("No se pudo cargar", "Revisa tu conexión y recarga la página.");
+  });
+})();
+</script>
+</body>
+</html>

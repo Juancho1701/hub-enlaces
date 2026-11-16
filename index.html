@@ -501,7 +501,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       </div>
       <div class="editor" id="ed-guia">
         <h3>Publicar una guía</h3>
-        <p class="hint">Sube un PDF o pega un enlace. La descripción y la portada son opcionales.</p>
+        <p class="hint">Sube un PDF, pega un enlace o escribe el contenido. Si escribes contenido, la guía tendrá su propia página en el hub.</p>
         <form id="f-guia" novalidate>
           <div class="fields">
             <input class="field full" id="g-nombre" type="text" maxlength="80" placeholder="Nombre de la guía" autocomplete="off" aria-label="Nombre de la guía">
@@ -510,6 +510,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
             <label class="drop"><input id="g-portada" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Imagen de portada"><img id="g-prev" alt="" hidden><svg id="g-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-4.5 3.5 3 3-2.5 4.5 4"/></svg><span id="g-portada-n">Portada (opcional, máx. 5 MB)</span></label>
             <span class="or">o</span>
             <input class="field full" id="g-url" type="url" maxlength="500" placeholder="Pega un enlace: https://…" autocomplete="off" aria-label="Enlace de la guía">
+            <textarea class="field full" id="g-cont" maxlength="100000" style="min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:14px" placeholder="Contenido de la guía para su propia página (opcional). Escribe en Markdown: ## Título de sección, 1. pasos, **negrita**, ``` para comandos." aria-label="Contenido de la guía"></textarea>
           </div>
           <div class="row-end"><button class="btn blue" id="g-btn" type="submit">Publicar guía</button><span class="msg" id="g-msg" role="status"></span></div>
         </form>
@@ -724,12 +725,13 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     var n = 0;
     guias.forEach(function(g, i){
       var isPdf = g.tipo === "pdf" && g.archivo_path;
-      var href = isPdf ? pub(g.archivo_path) : safeUrl(g.url);
+      var page = g.slug && /^[a-z0-9-]+$/.test(g.slug) ? "/guias/" + g.slug : null;
+      var href = page || (isPdf ? pub(g.archivo_path) : safeUrl(g.url));
       if (!href) return;
       n++;
       var li = el("li", "guide rv in");
       if (!calm) li.animate([{opacity:0,transform:"translateY(24px)"},{opacity:1,transform:"none"}],{duration:700,delay:i*60,easing:"cubic-bezier(.16,1,.3,1)",fill:"backwards"});
-      var cover = el("a", "cover"); cover.href = href; cover.target = "_blank"; cover.rel = "noopener"; cover.setAttribute("aria-label", "Abrir " + g.nombre);
+      var cover = el("a", "cover"); cover.href = href; if (!page) { cover.target = "_blank"; cover.rel = "noopener"; } cover.setAttribute("aria-label", "Abrir " + g.nombre);
       var coverSrc = !g.portada_path ? null : /^\/img\/[a-z0-9\/._-]+$/i.test(g.portada_path) ? g.portada_path : /^https:/.test(g.portada_path) ? safeUrl(g.portada_path) : pub(g.portada_path);
       if (coverSrc) {
         var im = el("img"); im.alt = "Portada de " + g.nombre; im.loading = "lazy"; im.src = coverSrc;
@@ -737,10 +739,10 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         cover.append(im);
       } else cover.innerHTML = isPdf ? ICON_PDF : ICON_LINK;
       var gb = el("div", "gb");
-      gb.append(el("span", "gs", isPdf ? ["PDF", size(g.tamano)].filter(Boolean).join(" · ") : "Guía · " + host(href)), el("span", "gn", g.nombre));
+      gb.append(el("span", "gs", page ? "Guía paso a paso" : isPdf ? ["PDF", size(g.tamano)].filter(Boolean).join(" · ") : "Guía · " + host(href)), el("span", "gn", g.nombre));
       if (g.descripcion) gb.append(el("p", "gd", g.descripcion));
       var ga = el("div", "ga");
-      var open = el("a", "pillbtn", isPdf ? "Abrir PDF" : "Abrir enlace"); open.href = href; open.target = "_blank"; open.rel = "noopener";
+      var open = el("a", "pillbtn", page ? "Leer guía" : isPdf ? "Abrir PDF" : "Abrir enlace"); open.href = href; if (!page) { open.target = "_blank"; open.rel = "noopener"; }
       ga.append(open);
       if (isAdmin) ga.append(delBtn(function(){
         var paths = [g.archivo_path, g.portada_path].filter(function(x){ return x && !/^(\/|https:)/.test(x); });
@@ -852,6 +854,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     if (f && !$("g-nombre").value.trim()) $("g-nombre").value = f.name.replace(/\.pdf$/i, "").slice(0, 80);
   });
 
+  function guideSlug(t){ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70) || "guia"; }
   function uid(){ return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); }
   function ext(f){ return ({"image/jpeg":"jpg","image/png":"png","image/webp":"webp"})[f.type] || "bin"; }
 
@@ -859,9 +862,9 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     e.preventDefault();
     var m = $("g-msg"), b = $("g-btn");
     var nombre = $("g-nombre").value.trim(), desc = $("g-desc").value.trim().slice(0, 240), pdf = $("g-pdf").files[0], cov = $("g-portada").files[0];
-    var raw = $("g-url").value.trim(), link = raw ? safeUrl(raw) : null;
+    var raw = $("g-url").value.trim(), link = raw ? safeUrl(raw) : null, cont = $("g-cont").value.trim();
     if (!nombre) return say(m, "Escribe el nombre de la guía.", "err");
-    if (!pdf && !raw) return say(m, "Elige un PDF o pega un enlace.", "err");
+    if (!pdf && !raw && !cont) return say(m, "Elige un PDF, pega un enlace o escribe el contenido.", "err");
     if (pdf && raw) return say(m, "Deja solo una opción: el PDF o el enlace.", "err");
     if (raw && !link) return say(m, "Pega un enlace completo que empiece por https://", "err");
     if (pdf && pdf.type !== "application/pdf" && !/\.pdf$/i.test(pdf.name)) return say(m, "El archivo debe ser un PDF.", "err");
@@ -875,8 +878,11 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     pPdf.then(function(pdfPath){
       var pCov = cov ? store.upload("portadas/" + id + "." + ext(cov), cov, {contentType:cov.type, cacheControl:"31536000", upsert:false}).then(function(r){ if (r.error) throw r.error; uploaded.push(r.data.path); return r.data.path; }) : Promise.resolve(null);
       return pCov.then(function(covPath){
-        var row = {nombre:nombre, descripcion:desc || null, tipo:pdfPath ? "pdf" : "enlace", archivo_path:pdfPath, url:pdfPath ? null : link, portada_path:covPath, tamano:pdf ? pdf.size : null};
-        return sb.from("hub_guias").insert(row).then(function(r){ if (r.error) throw r.error; });
+        var row = {nombre:nombre, descripcion:desc || null, tipo:pdfPath ? "pdf" : link ? "enlace" : "pagina", archivo_path:pdfPath, url:pdfPath ? null : link, portada_path:covPath, tamano:pdf ? pdf.size : null, contenido:cont || null, slug:cont ? guideSlug(nombre) : null};
+        return sb.from("hub_guias").insert(row).then(function(r){
+          if (r.error && r.error.code === "23505" && row.slug) { row.slug = row.slug.slice(0, 70) + "-" + Math.random().toString(36).slice(2, 6); return sb.from("hub_guias").insert(row); }
+          return r;
+        }).then(function(r){ if (r.error) throw r.error; });
       });
     }).then(function(){
       $("f-guia").reset(); resetCover(); $("g-pdf-n").textContent = "Elegir PDF (máx. 20 MB)";
